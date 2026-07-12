@@ -1,0 +1,29 @@
+# Các thư mục chứa thư viện (Bắt buộc phải bỏ qua)
+node_modules/
+dist/
+.json/
+
+# Các file chứa cấu hình bảo mật, mật khẩu (Bắt buộc phải bỏ qua)
+.env
+.env.local
+.env.production
+.env.development
+
+# Log files (Lịch sử ghi lỗi khi chạy app)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Cấu hình riêng của các editor chỉnh sửa code
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Hệ điều hành tự sinh ra
+.DS_Store
+Thumbs.db
