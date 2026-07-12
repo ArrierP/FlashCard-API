@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: 'https://flash-card-webapp-swart.vercel.app',
+    origin: 'https://arrier-flashcard.vercel.app',
     credentials: true
 }
 ));
