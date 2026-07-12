@@ -13,15 +13,18 @@ export const registerUser = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-    const { email, password } = req.body;  
+    const { email, password } = req.body;
     try {
         const user = await loginUser(email, password);
-        res.cookie('token', jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' }), {
-            httpOnly: true,
-            secure: true, // Set to true in production
-            sameSite: 'none',
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '3h' })
+        res.status(200).json({
+            message: 'Login successful',
+            user: {
+                username: user.username,
+                email: user.email
+            },
+            token: token
         });
-        res.status(200).json({ message: 'Login successful', user });
     } catch (err) {
         res.status(401).json({ message: err.message });
     }
