@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
-const ai = new GoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY })
+const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 
 export const generateFlashCardData = async (word) => {
     const prompt = `Bạn là một từ điển Anh-Việt thông minh. Hãy phân tích từ "${word}" và trả về một chuỗi JSON duy nhất (không bọc trong markdown \`\`\`json) theo cấu trúc chính xác sau:
@@ -15,10 +15,10 @@ export const generateFlashCardData = async (word) => {
 
 
     try {
-        const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: prompt
-        })
+        const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
 
         const textOutput = response.text.trim()
         return JSON.parse(textOutput)

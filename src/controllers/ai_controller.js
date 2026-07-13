@@ -7,8 +7,7 @@ export const autoCreateCardWithAI = async (req, res) => {
 
         res.status(200).json({
             message: "Generate card successfully.",
-            card: aiData,
-            ...aiData
+            card: aiData
         })
     } catch (err) {
         res.status(500).json({ message: err.message })
