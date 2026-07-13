@@ -7,6 +7,8 @@ import cookieParser from "cookie-parser";
 import userRoutes from "./routers/user_route.js";
 import deskRoutes from './routers/desk_route.js'
 import cardRoutes from './routers/card_route.js'
+import analyticsRoute from './routers/analytics_route.js'
+
 dotenv.config();
 
 const app = express();
@@ -30,7 +32,7 @@ app.get("/", (req, res) => {
 app.use('/api/auth', userRoutes);
 app.use('/api/desk', deskRoutes)
 app.use('/api/card', cardRoutes)
-
+app.use('/api/analytics', analyticsRoute)
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

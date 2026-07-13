@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const cardSchema = mongoose.Schema(
     {
-        deckId: {
+        deskId: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: "Deck",
