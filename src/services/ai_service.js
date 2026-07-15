@@ -1,5 +1,4 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
-
 const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 
 export const generateFlashCardData = async (word) => {
@@ -15,14 +14,22 @@ export const generateFlashCardData = async (word) => {
 
 
     try {
-        const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const model = ai.getGenerativeModel({ model: "gemini-3.5-flash" });
 
         const result = await model.generateContent(prompt);
         const response = await result.response;
 
-        const textOutput = response.text.trim()
-        return JSON.parse(textOutput)
+        // ĐÃ SỬA: Lấy text bằng hàm .text() chuẩn SDK
+        let textOutput = response.text().trim();
+
+        // ĐÃ SỬA: Dùng Regex dọn sạch khối gạch ```json và ``` nếu AI cố tình trả về dạng Markdown
+        textOutput = textOutput.replace(/^```json\s*/i, '').replace(/```$/, '').trim();
+
+        // Chuyển chuỗi sạch về JSON Object
+        return JSON.parse(textOutput);
     } catch (err) {
+        console.log("KEY HIỆN TẠI ĐANG LÀ:", process.env.GEMINI_API_KEY);
+        console.error("LỖI CHI TIẾT GEMINI:", err);
         throw new Error("Cannot translate this word.")
     }
 } 

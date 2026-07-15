@@ -1,5 +1,5 @@
+import 'dotenv/config';
 import express from "express";
-import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import { initReminderCron } from "./config/reminder.js";
 import cors from "cors";
@@ -9,17 +9,16 @@ import deskRoutes from './routers/desk_route.js'
 import cardRoutes from './routers/card_route.js'
 import analyticsRoute from './routers/analytics_route.js'
 
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: 'https://arrier-flashcard.vercel.app',
+    origin: 'http://localhost:5173',
     credentials: true
 }
 ));
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(express.json());
 
 connectDB();
