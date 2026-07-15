@@ -19,8 +19,8 @@ export const createCardController = async (req, res) => {
     try {
         const { id } = req.params
         const userId = req.user.id
-        const { word, phonetic, type, meaning, example, exampleMeaning } = req.body
-        const card = await createCard(id, userId, word, phonetic, type, meaning, example, exampleMeaning)
+        const { word, phonetic, type, meaning, example, exampleMeaning, cardType, context } = req.body
+        const card = await createCard(id, userId, word, phonetic, type, meaning, example, exampleMeaning, cardType, context)
 
         res.status(201).json({
             message: "Created card successfully.",
@@ -35,9 +35,9 @@ export const updateCardController = async (req, res) => {
     try {
         const { id } = req.params
         const userId = req.user.id
-        const { word, phonetic, type, meaning, example, exampleMeaning } = req.body
+        const { word, phonetic, type, meaning, example, exampleMeaning, cardType, context } = req.body
 
-        const card = await updateCard(id, userId, word, phonetic, type, meaning, example, exampleMeaning)
+        const card = await updateCard(id, userId, word, phonetic, type, meaning, example, exampleMeaning, cardType, context)
 
         res.status(200).json({
             message: "Updated card successfully.",

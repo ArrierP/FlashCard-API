@@ -1,9 +1,10 @@
 import Card from '../models/card_model.js'
-import User from '../models/card_model.js'
+import User from '../models/user_model.js'
 
 export const getStudyAnlytics = async (userId) => {
     try {
-        if (!User.findById(userId)) {
+        const user = await User.findById(userId)
+        if (!user) {
             throw new Error("User not found")
         }
         const totalCards = await Card.countDocuments({ userId })

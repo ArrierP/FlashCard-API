@@ -58,6 +58,15 @@ const cardSchema = mongoose.Schema(
         nextReviewDate: {
             type: Date,
             default: Date.now
+        },
+        cardType: {
+            type: String,
+            enum: ["idiom", 'vocabulary'],
+            default: "vocabulary"
+        },
+        context: {
+            type: String,
+            default: ''
         }
     }, { timestamps: true }
 );

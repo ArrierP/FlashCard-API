@@ -13,7 +13,7 @@ export const getCardByDeskId = async (deskId) => {
     }
 }
 
-export const createCard = async (deskId, userId, word, phonetic, type, meaning, example, exampleMeaning) => {
+export const createCard = async (deskId, userId, word, phonetic, type, meaning, example, exampleMeaning, cardType = 'vocabulary', context = '') => {
     try {
         const existingCard = await Card.findOne({ word, deskId })
 
@@ -25,7 +25,7 @@ export const createCard = async (deskId, userId, word, phonetic, type, meaning, 
             throw new Error("All fields required.")
         }
 
-        const newCard = new Card({ deskId, userId, word, phonetic, type, meaning, example, exampleMeaning })
+        const newCard = new Card({ deskId, userId, word, phonetic, type, meaning, example, exampleMeaning, cardType, context })
 
         await newCard.save()
 
@@ -35,7 +35,7 @@ export const createCard = async (deskId, userId, word, phonetic, type, meaning, 
     }
 }
 
-export const updateCard = async (cardId, userId, word, phonetic, type, meaning, example, exampleMeaning) => {
+export const updateCard = async (cardId, userId, word, phonetic, type, meaning, example, exampleMeaning, cardType, context) => {
     try {
         const existingCard = await Card.findById(cardId)
 
@@ -49,6 +49,8 @@ export const updateCard = async (cardId, userId, word, phonetic, type, meaning, 
         if (meaning) existingCard.meaning = meaning;
         if (example) existingCard.example = example;
         if (exampleMeaning) existingCard.exampleMeaning = exampleMeaning;
+        if (cardType) existingCard.cardType = cardType;
+        if (context !== undefined) existingCard.context = context;
 
         await existingCard.save()
 

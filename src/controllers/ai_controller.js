@@ -1,10 +1,18 @@
-import { generateFlashCardData } from '../services/ai_service.js'
+import { generateFlashCardData, generateIdiomData } from '../services/ai_service.js'
 
 export const autoCreateCardWithAI = async (req, res) => {
-    const { word, deskId } = req.body
+    const { word, deskId, cardType } = req.body
     try {
-        const aiData = await generateFlashCardData(word)
+        let aiData;
 
+        if(cardType === 'idiom') {
+            aiData = await generateIdiomData(word)
+            aiData.cardType = 'idiom'
+        }
+        else{
+            aiData = await generateFlashCardData(word)
+            aiData.cardType = 'vocabulary'
+        }
         res.status(200).json({
             message: "Generate card successfully.",
             card: aiData
@@ -13,4 +21,6 @@ export const autoCreateCardWithAI = async (req, res) => {
         res.status(500).json({ message: err.message })
     }
 }
+
+
 
